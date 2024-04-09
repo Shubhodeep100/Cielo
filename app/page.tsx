@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-
+import Image from 'next/image'
+import cloud from "./assets/cloud.png";
+import Input from "./component/Input";
 interface City {
   name: string;
   country: string;
@@ -51,22 +53,33 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-cover bg-gradient-to-r bg-black to-zinc-700 h-screen flex items-center justify-center">
-      <div className="flex w-3/5 items-center justify-center">
+    <div className="bg-gradient-to-r from-violet-500 to-purple-500 bg-cover h-screen flex items-center justify-center">
+      <div className="flex w-3/5 items-center justify-center flex-col">
+        <div className="flex flex-col">
+          <div className="flex justify-center items-end">
+            <Image
+              src={cloud}
+              alt="Logo"
+              className="w-20 h-14 transform transition duration-500 hover:scale-110"
+            />
+          </div>
+          <h1 className="mb-10 text-5xl font-serif text-white tracking-widest drop-shadow-lg shadow-black">Cielo</h1>
+         {/* <Input/> */}
+        </div>
         <div
-          className="mx-auto w-full max-w-screen-lg max-h-60 overflow-scroll overflow-x-auto "
+          className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto "
           ref={tableRef}
         >
           <table className="min-w-full">
-            <thead className="sticky top-0 w-full  ">
+            <thead className="sticky top-0">
               <tr className="">
-                <th className="px-6 py-3 bg-gray-700 text-base font-medium text-white  tracking-wider">
+                <th className=" px-6 py-3 bg-gray-500 text-base font-thin text-white  tracking-wider">
                   City Name
                 </th>
-                <th className="px-6 py-3  bg-gray-700 text-base font-medium text-white  tracking-wider">
+                <th className=" px-6 py-3  bg-gray-500 text-base font-thin text-white  tracking-wider">
                   Country
                 </th>
-                <th className="px-6 py-3  bg-gray-700 text-base font-medium text-white  tracking-wider">
+                <th className=" px-6 py-3  bg-gray-500 text-base font-thin text-white  tracking-wider">
                   Timezone
                 </th>
               </tr>
@@ -75,9 +88,9 @@ const Home = () => {
               {cities.length > 0 ? (
                 cities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
-                    <td className="px-6 py-4 text-center border bg-orange-600">{city.name}</td>
-                    <td className="px-6 py-4 text-center border bg-orange-600">{city.country}</td>
-                    <td className="px-6 py-4 text-center border bg-orange-600">{city.timezone}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.name}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.country}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.timezone}</td>
                   </tr>
                 ))
               ) : (

@@ -24,9 +24,9 @@ const Input: React.FC<Props> = ({ onSearch }) => {
         placeholder="Search city"
         value={query}
         onChange={handleChange}
-        className="w-full bg-transparent border-b-2 placeholder-white outline-none text-white"
+        className="w-full border-b-2 placeholder-white outline-none text-white"
       />
-      <button type="submit" className="ml-[-25px] text-white cursor-pointer ">
+      <button type="submit" className="ml-2 text-white cursor-pointer ">
         <CiSearch className="font-bold text-xl" />
       </button>
     </form>
