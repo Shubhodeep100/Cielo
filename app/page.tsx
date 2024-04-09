@@ -1,8 +1,11 @@
 "use client"
-
+import { useState } from "react";
 import Input from "./component/Input";
 
 const Home = () => {
+
+  const [data, setData] = useState({});
+  
   return (
     <div className="bg-cover bg-gradient-to-r from-cyan-600 to-blue-400 h-screen">
       <div className="bg-white/25 w-full flex flex-col h-fit">
