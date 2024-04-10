@@ -29,9 +29,7 @@ const Home = () => {
       const response = await fetch(
         "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=100"
       );
-      console.log("API response status:", response.status);
-      const data = await response.json();
-      console.log("API data:", data);
+      const data = await response.json()
 
       if (data.results && data.results.length > 0) {
         const extractedCities: City[] = data.results.map((result: any) => ({
@@ -45,7 +43,7 @@ const Home = () => {
         setCities([]);
       }
     } catch (error) {
-      console.error("Error fetching city data:", error);
+     
       setCities([
         { name: "Error fetching data", country: "Error fetching data", timezone: "Error fetching data" },
       ]);
@@ -55,7 +53,11 @@ const Home = () => {
   };
 
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
+    if (query.trim() === "") {
+      setSearchQuery(""); // Set searchQuery to empty string if query is empty
+    } else {
+      setSearchQuery(query); // Set searchQuery to the typed query
+    }
   };
 
   // Filter and sort cities based on search query
