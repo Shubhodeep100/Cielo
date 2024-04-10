@@ -18,16 +18,16 @@ const Input: React.FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <form className="flex items-center md:w-2/4 w-full order-2 md:order-1" onSubmit={handleSubmit}>
+    <form className="flex items-center w-full px-2 z-10" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Search city"
         value={query}
         onChange={handleChange}
-        className="w-full border-b-2 placeholder-white outline-none text-white"
+        className="w-full bg-transparent outline-none text-white"
       />
-      <button type="submit" className="ml-2 text-white cursor-pointer ">
-        <CiSearch className="font-bold text-xl" />
+      <button type="submit" className="text-white cursor-pointer hover:text-zinc-300">
+        <CiSearch className="font-bold text-3xl " />
       </button>
     </form>
   );

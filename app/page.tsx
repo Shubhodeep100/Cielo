@@ -1,10 +1,11 @@
 "use client";
 
+// page.tsx
+
 import { useState, useEffect, useRef } from "react";
-import Image from 'next/image'
-import cloud from "./assets/cloud.png";
 import Input from "./component/Input";
 import Link from "next/link";
+
 interface City {
   name: string;
   country: string;
@@ -15,10 +16,11 @@ const Home = () => {
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
   const tableRef = useRef<HTMLDivElement>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchQuery]);
 
   const fetchData = async () => {
     try {
@@ -37,7 +39,6 @@ const Home = () => {
           country: result.cou_name_en,
           timezone: result.timezone,
         }));
-        console.log("Extracted cities:", extractedCities);
         setCities(extractedCities);
       } else {
         console.error("Error: data.results is empty or undefined");
@@ -53,13 +54,21 @@ const Home = () => {
     }
   };
 
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
+  // Filter and sort cities based on search query
+  const filteredCities = cities.filter(city => city.name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+  const sortedCities = filteredCities.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <div className="bg-slate-900 bg-cover h-screen flex items-center justify-center">
-      <div className="flex w-3/5 items-center justify-center flex-col">
-        <div
-          className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto "
-          ref={tableRef}
-        >
+      <div className="flex w-3/5 items-center justify-center flex-col gap-5">
+        <div className="w-4/5 bg-gradient-to-b from-slate-700 to-slate-600 rounded-lg h-3/5 py-2">
+          <Input onSearch={handleSearch} />
+        </div>
+        <div className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto" ref={tableRef}>
           <table className="min-w-full">
             <thead className="sticky top-0">
               <tr className="">
@@ -75,10 +84,18 @@ const Home = () => {
               </tr>
             </thead>
             <tbody>
-              {cities.length > 0 ? (
-                cities.map((city, index) => (
+              {loading ? (
+                <tr>
+                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
+                    Loading...
+                  </td>
+                </tr>
+              ) : sortedCities.length > 0 ? (
+                sortedCities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black "><Link href={''} className="hover:underline"> {city.name}</Link></td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">
+                      <Link href={''} className="hover:underline"> {city.name}</Link>
+                    </td>
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.country}</td>
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.timezone}</td>
                   </tr>
@@ -86,13 +103,12 @@ const Home = () => {
               ) : (
                 <tr>
                   <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
-                    No data available
+                    No matching cities found
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
-          {loading && <div>Loading...</div>}
         </div>
       </div>
     </div>
