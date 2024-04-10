@@ -1,35 +1,33 @@
 "use client";
-
-// page.tsx
-
-import { useState, useEffect, useRef } from "react";
-import Input from "./component/Input";
 import Link from "next/link";
-
+import { useState, useEffect, useRef, ChangeEvent } from "react";
 interface City {
   name: string;
   country: string;
   timezone: string;
+  target: string;
 }
-
 const Home = () => {
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
-  const tableRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+
 
   useEffect(() => {
     fetchData();
-  }, [searchQuery]);
+    searchInputRef.current?.focus();
+  }, []);
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      console.log("Fetching data...");
       const response = await fetch(
         "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=100"
       );
-      const data = await response.json()
+
+      const data = await response.json();
 
       if (data.results && data.results.length > 0) {
         const extractedCities: City[] = data.results.map((result: any) => ({
@@ -37,40 +35,44 @@ const Home = () => {
           country: result.cou_name_en,
           timezone: result.timezone,
         }));
+
         setCities(extractedCities);
       } else {
-        console.error("Error: data.results is empty or undefined");
         setCities([]);
       }
     } catch (error) {
-     
-      setCities([
-        { name: "Error fetching data", country: "Error fetching data", timezone: "Error fetching data" },
-      ]);
+      console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSearch = (query: string) => {
-    if (query.trim() === "") {
-      setSearchQuery(""); // Set searchQuery to empty string if query is empty
-    } else {
-      setSearchQuery(query); // Set searchQuery to the typed query
-    }
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
-  // Filter and sort cities based on search query
-  const filteredCities = cities.filter(city => city.name.toLowerCase().startsWith(searchQuery.toLowerCase()));
-  const sortedCities = filteredCities.sort((a, b) => a.name.localeCompare(b.name));
+  const filteredCities = cities.filter(city =>
+    city.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+  );
+
 
   return (
-    <div className="bg-slate-900 bg-cover h-screen flex items-center justify-center">
+    <div className="bg-gradient-to-t from-slate-900 to-black bg-cover h-screen flex items-center justify-center">
       <div className="flex w-3/5 items-center justify-center flex-col gap-5">
-        <div className="w-4/5 bg-gradient-to-b from-slate-700 to-slate-600 rounded-lg h-3/5 py-2">
-          <Input onSearch={handleSearch} />
+        <div className=" w-4/5 bg-gray rounded-lg h-3/5 py-2 border-b-2 px-3">
+          <input
+            type="text"
+            className="form-control flex items-center w-full px-2 z-10 bg-transparent outline-none text-white"
+            placeholder="Search city"
+            value={searchQuery}
+            ref={searchInputRef}
+            onChange={handleSearchChange}
+          />
         </div>
-        <div className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto" ref={tableRef}>
+        <div
+          className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto "
+        // ref={tableRef}
+        >
           <table className="min-w-full">
             <thead className="sticky top-0">
               <tr className="">
@@ -92,11 +94,13 @@ const Home = () => {
                     Loading...
                   </td>
                 </tr>
-              ) : sortedCities.length > 0 ? (
-                sortedCities.map((city, index) => (
+              ) : filteredCities.length > 0 ? (
+                filteredCities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">
-                      <Link href={''} className="hover:underline"> {city.name}</Link>
+                      <Link href={""} className="hover:underline">
+                        {city.name}
+                      </Link>
                     </td>
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.country}</td>
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.timezone}</td>

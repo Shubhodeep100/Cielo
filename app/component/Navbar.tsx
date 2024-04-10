@@ -32,7 +32,7 @@ function Navbar() {
 
 
     return (
-        <div className='fixed py-1 bg-gradient-to-b from-gray-800 to-gray-900 w-full flex flex-row justify-between px-6'>
+        <div className='fixed py-1 bg-gradient-to-b from-gray-800 to-black w-full flex flex-row justify-between px-6'>
             <div className='flex flex-row'>
                 <Image
                     src={cloud}
