@@ -1,19 +1,19 @@
-"use client";
-import Link from "next/link";
+"use client"
 import { useState, useEffect, useRef, ChangeEvent } from "react";
+import Link from "next/link";
+
 interface City {
   name: string;
   country: string;
   timezone: string;
-  target: string;
 }
+
 const Home = () => {
   const [cities, setCities] = useState<City[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<City[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-
 
   useEffect(() => {
     fetchData();
@@ -48,13 +48,17 @@ const Home = () => {
   };
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
+    const query = event.target.value;
+    setSearchQuery(query);
+    if (query.trim() !== "") {
+      const filteredSuggestions = cities.filter((city) =>
+        city.name.toLowerCase().startsWith(query.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
   };
-
-  const filteredCities = cities.filter(city =>
-    city.name.toLowerCase().startsWith(searchQuery.toLowerCase())
-  );
-
 
   return (
     <div className="bg-gradient-to-t from-slate-900 to-black bg-cover h-screen flex items-center justify-center">
@@ -68,37 +72,35 @@ const Home = () => {
             ref={searchInputRef}
             onChange={handleSearchChange}
           />
+          <div className="absolute bg-white mt-2 shadow-lg rounded-b-lg z-10 max-h-64 overflow-y-auto">
+            {suggestions.map((city) => (
+              <div key={city.name} className="p-2 border-b overflow-y-auto ">
+                <Link href="#" className="text-gray-800">
+                  {city.name}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-        <div
-          className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto "
-        // ref={tableRef}
-        >
+        <div className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto">
           <table className="min-w-full">
             <thead className="sticky top-0">
-              <tr className="">
-                <th className=" px-6 py-3 bg-gray-500 text-base font-thin text-white  tracking-wider">
-                  City Name
-                </th>
-                <th className=" px-6 py-3  bg-gray-500 text-base font-thin text-white  tracking-wider">
-                  Country
-                </th>
-                <th className=" px-6 py-3  bg-gray-500 text-base font-thin text-white  tracking-wider">
-                  Timezone
-                </th>
+              <tr>
+                <th className="px-6 py-3 bg-gray-500 text-base font-thin text-white tracking-wider">City Name</th>
+                <th className="px-6 py-3 bg-gray-500 text-base font-thin text-white tracking-wider">Country</th>
+                <th className="px-6 py-3 bg-gray-500 text-base font-thin text-white tracking-wider">Timezone</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
-                    Loading...
-                  </td>
+                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap">Loading...</td>
                 </tr>
-              ) : filteredCities.length > 0 ? (
-                filteredCities.map((city, index) => (
+              ) : (
+                cities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">
-                      <Link href={""} className="hover:underline">
+                      <Link href="#" className="hover:underline">
                         {city.name}
                       </Link>
                     </td>
@@ -106,12 +108,6 @@ const Home = () => {
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.timezone}</td>
                   </tr>
                 ))
-              ) : (
-                <tr>
-                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
-                    No matching cities found
-                  </td>
-                </tr>
               )}
             </tbody>
           </table>
