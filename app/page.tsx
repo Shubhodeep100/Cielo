@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from 'next/image'
 import cloud from "./assets/cloud.png";
 import Input from "./component/Input";
+import Link from "next/link";
 interface City {
   name: string;
   country: string;
@@ -53,19 +54,8 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-violet-500 to-purple-500 bg-cover h-screen flex items-center justify-center">
+    <div className="bg-slate-900 bg-cover h-screen flex items-center justify-center">
       <div className="flex w-3/5 items-center justify-center flex-col">
-        <div className="flex flex-col">
-          <div className="flex justify-center items-end">
-            <Image
-              src={cloud}
-              alt="Logo"
-              className="w-20 h-14 transform transition duration-500 hover:scale-110"
-            />
-          </div>
-          <h1 className="mb-10 text-5xl font-serif text-white tracking-widest drop-shadow-lg shadow-black">Cielo</h1>
-         {/* <Input/> */}
-        </div>
         <div
           className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto "
           ref={tableRef}
@@ -88,9 +78,9 @@ const Home = () => {
               {cities.length > 0 ? (
                 cities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.name}</td>
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.country}</td>
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.timezone}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black "><Link href={''} className="hover:underline"> {city.name}</Link></td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.country}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.timezone}</td>
                   </tr>
                 ))
               ) : (
