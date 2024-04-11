@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaSortAlphaDownAlt, FaSortAlphaDown } from "react-icons/fa";
 
 interface City {
+  id: string;
   name: string;
   country: string;
   timezone: string;
@@ -103,7 +104,7 @@ const Home = () => {
           <div className="absolute bg-white mt-2 shadow-lg rounded-b-lg z-10 overflow-y-auto max-h-60">
             {suggestions.map(city => (
               <div key={city.name} className="p-2 border-b">
-                <Link href="#" className="text-gray-800" >
+                <Link href={`/city/${city.id}`} className="text-gray-800" >
                   {city.name}
                 </Link>
               </div>
@@ -167,7 +168,7 @@ const Home = () => {
                 sortedCities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">
-                      <Link href="#" className="hover:underline" >
+                      <Link href={`/city/${city.id}`} className="hover:underline" >
                         {city.name}
                       </Link>
                     </td>

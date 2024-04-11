@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React from 'react'
 import cloud from '../assets/cloud.png'
-import Link from "next/link";
+// import Link from "next/link";
 
 
 const links = [
@@ -47,9 +47,9 @@ function Navbar() {
                         key={id}
                         className="px-4"
                     >
-                        <Link href="" className='cursor-pointer text-base font-thin text-white hover:text-gray-300'>
+                        <p className='cursor-pointer text-base font-thin text-white hover:text-gray-400'>
                             {link}
-                        </Link>
+                        </p>
                     </div>
                 ))}
             </nav>
