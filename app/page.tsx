@@ -168,7 +168,7 @@ const Home = () => {
                 sortedCities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
                     <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">
-                      <Link href={`/city/${city.id}`} className="hover:underline" >
+                      <Link href={`/city/${encodeURIComponent(city.name)}`} className="hover:underline" >
                         {city.name}
                       </Link>
                     </td>

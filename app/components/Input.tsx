@@ -1,5 +1,5 @@
 "use client";
-// import SearchIcon from "@mui/icons-material/Search";
+
 import { CiSearch } from "react-icons/ci";
 interface InputProps {
     handleSearch: (event: React.KeyboardEvent<HTMLInputElement>) => void;

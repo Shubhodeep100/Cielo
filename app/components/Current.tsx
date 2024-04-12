@@ -13,7 +13,6 @@ interface CurrentProps {
         location?: {
             name: string;
             region: string;
-            timezone:string;
         };
     };
 }
@@ -22,7 +21,7 @@ const Current = ({ data }: CurrentProps) => {
     const weatherIcon = data.current ? data.current.condition.icon : null;
     const currentDate = getCurrentDate();
     return (
-        <div className="flex flex-col mb-8 md:mb-0 items-start gap-2 bg-black/25 p-6 rounded-xl">
+        <div className="flex flex-col mb-4 md:mb-0 items-start gap-2 bg-black/25 p-6 rounded-xl">
             <div className="flex items-center">
                 <div className="">
                     <h1 className="text-3xl text-white">Today</h1>
@@ -43,12 +42,13 @@ const Current = ({ data }: CurrentProps) => {
                 ) : null}
                 {data.current ? <span className="text-white">{data.current.condition.text}</span> : null}
             </div>
+            
             <div>
                 {data.location ? (
-                    <div className="flex items-center text-black bg-white/90 px-2 py-2 rounded-xl">
-                        <IoLocationOutline />
+                    <div className="flex items-center text-black bg-white/90 p-2 rounded-xl justify-evenly">
+                        <IoLocationOutline className="text-3xl"/>
                         <span>
-                            {data.location.name}, {data.location.timezone}
+                            {data.location.name}, {data.location.region} 
                         </span>
                     </div>
                 ) : null}
