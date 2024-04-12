@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React from 'react'
 import cloud from '../assets/cloud.png'
-// import Link from "next/link";
+
 
 
 const links = [
@@ -32,7 +32,7 @@ function Navbar() {
 
 
     return (
-        <div className='fixed py-1 bg-gradient-to-b from-gray-800 to-black w-full flex flex-row justify-between px-6'>
+        <div className='fixed py-1 bg-gradient-to-b from-gray-800 to-black w-full flex flex-row justify-between px-6 z-50'>
             <div className='flex flex-row'>
                 <Image
                     src={cloud}

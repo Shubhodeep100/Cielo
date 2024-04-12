@@ -13,6 +13,7 @@ interface CurrentProps {
         location?: {
             name: string;
             region: string;
+            timezone:string;
         };
     };
 }
@@ -47,7 +48,7 @@ const Current = ({ data }: CurrentProps) => {
                     <div className="flex items-center text-black bg-white/90 px-2 py-2 rounded-xl">
                         <IoLocationOutline />
                         <span>
-                            {data.location.name}, {data.location.region}
+                            {data.location.name}, {data.location.timezone}
                         </span>
                     </div>
                 ) : null}

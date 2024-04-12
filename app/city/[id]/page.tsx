@@ -36,7 +36,7 @@ export default function City() {
   return (
     <div className="bg-cover bg-gradient-to-t from-gray-800 to-black h-fit">
       <div className=" w-full rounded-lg flex flex-col h-fit">
-        <div className="flex flex-col md:flex-row justify-between items-center px-10 mt-20">
+        <div className="flex flex-col md:flex-row justify-between items-center px-10 mt-20 z-20">
           <Input handleSearch={handleSearch} setLocation={setLocation} />
           <Link href="/" className="bg-zinc-900 rounded-xl border-2">
             <div className="p-2 text-center text-white">Go back</div>
