@@ -194,7 +194,7 @@
 }
 
 .sunshine {
-  animation: sunshines 2s infinite;
+  animation: sunshines 1s infinite;
 }
 
 @keyframes sunshines {
