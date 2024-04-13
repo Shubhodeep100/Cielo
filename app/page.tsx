@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef, ChangeEvent } from "react";
 import Link from "next/link";
 import { FaSortAlphaDownAlt, FaSortAlphaDown } from "react-icons/fa";
+import Loader from "./components/Loader";
+
 
 interface City {
   id: string;
@@ -92,7 +94,7 @@ const Home = () => {
   return (
     <div className="bg-gradient-to-t from-slate-900 to-black bg-cover h-screen flex items-center justify-center">
       <div className="flex w-3/5 items-center justify-center flex-col gap-5">
-        <div className=" w-4/5 bg-gray rounded-lg h-3/5 py-2 border-b-2 px-3">
+        <div className="w-4/5 bg-gray rounded-lg h-3/5 py-2 border-b-2 px-3">
           <input
             type="text"
             className="form-control flex items-center w-full px-2 z-10 bg-transparent outline-none text-white"
@@ -101,10 +103,11 @@ const Home = () => {
             ref={searchInputRef}
             onChange={handleSearchChange}
           />
+
           <div className="absolute bg-white mt-2 shadow-lg rounded-b-lg z-10 overflow-y-auto max-h-60">
             {suggestions.map(city => (
               <div key={city.name} className="p-2 border-b">
-                <Link href={`/city/${city.id}`} className="text-gray-800" >
+                <Link href={`/city/${encodeURIComponent(city.name)}`} className="text-gray-800 hover:text-gray-400" >
                   {city.name}
                 </Link>
               </div>
@@ -160,8 +163,8 @@ const Home = () => {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
-                    Loading...
+                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap text-white">
+                   <Loader/>
                   </td>
                 </tr>
               ) : sortedCities.length > 0 ? (
@@ -178,7 +181,7 @@ const Home = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
+                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap text-white">
                     No matching cities found
                   </td>
                 </tr>

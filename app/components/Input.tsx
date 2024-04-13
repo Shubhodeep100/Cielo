@@ -1,23 +1,39 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
+
 interface InputProps {
-    handleSearch: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-    setLocation: React.Dispatch<React.SetStateAction<string>>;
+    handleSearch: (city: string) => void;
 }
 
-const Input = ({ handleSearch, setLocation }: InputProps) => {
+const Input = ({ handleSearch }: InputProps) => {
+    const router = useRouter();
+    const [city, setCity] = useState("");
+
+    // Get the city name from the URL query parameter
+    const defaultCity = router.query.id as string;
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCity(event.target.value);
+    };
+
+    const handleSearchClick = () => {
+        handleSearch(city);
+    };
+
     return (
         <form className="flex items-center md:w-2/4 w-full order-2 md:order-1">
             <input
                 type="text"
-                className="w-full rounded-xl p-2 outline-none  text-black"
+                className="w-full rounded-xl p-2 outline-none text-black"
                 placeholder="Search city..."
-                onKeyDown={handleSearch}
-                onChange={(e) => setLocation(e.target.value)}
+                value={city || defaultCity || ""}
+                onChange={handleInputChange}
             />
-            <div className="ml-[-30px] text-black cursor-pointer">
-                <CiSearch className="text-black text-xl"/>
+            <div className="ml-[-30px] text-black cursor-pointer" onClick={handleSearchClick}>
+                <CiSearch className="text-black text-xl" />
             </div>
         </form>
     );

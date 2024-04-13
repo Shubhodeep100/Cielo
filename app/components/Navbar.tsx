@@ -12,7 +12,7 @@ const links = [
     },
     {
         id: 2,
-        link: "Testimonial",
+        link: "Worlwide ",
     },
     {
         id: 3,
