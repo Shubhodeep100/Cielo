@@ -21,7 +21,7 @@ const Current = ({ data }: CurrentProps) => {
     const weatherIcon = data.current ? data.current.condition.icon : null;
     const currentDate = getCurrentDate();
     return (
-        <div className="flex flex-col mb-4 md:mb-0 items-start gap-2 bg-black/25 p-6 rounded-xl">
+        <div className="flex flex-col mb-4 md:mb-0 items-start gap-2  p-6 rounded-xl bg-gradient-to-t from-slate-900 to-slate-700">
             <div className="flex items-center">
                 <div className="">
                     <h1 className="text-3xl text-white">Today</h1>
@@ -46,7 +46,7 @@ const Current = ({ data }: CurrentProps) => {
             <div>
                 {data.location ? (
                     <div className="flex items-center text-black bg-white/90 p-2 rounded-xl justify-evenly">
-                        <IoLocationOutline className="text-3xl"/>
+                        <IoLocationOutline className="text-2xl"/>
                         <span>
                             {data.location.name}, {data.location.region} 
                         </span>

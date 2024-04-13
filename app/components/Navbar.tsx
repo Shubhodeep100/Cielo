@@ -33,7 +33,7 @@ function Navbar() {
 
     return (
         <div className='fixed py-1 bg-zinc-950 w-full flex flex-row justify-between px-6 z-50'>
-            <div className='flex flex-row'>
+            <div className='flex flex-row justify-center sm:justify-start w-full py-2'>
                 <Image
                     src={cloud}
                     alt="Logo"
@@ -41,7 +41,7 @@ function Navbar() {
                 />
                 <h1 className="flex items-center text-5xl font-serif text-white tracking-wider mx-4 font-signature font-semibold">Cielo</h1>
             </div>
-            <nav className='flex items-center'>
+            <nav className='sm:flex items-center hidden'>
                 {links.map(({ id, link }) => (
                     <div
                         key={id}

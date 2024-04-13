@@ -37,10 +37,8 @@ export default function City() {
 
   return (
     <div className={` bg-zinc-950 ${Object.keys(data).length === 0 ? "h-screen" : ""}`}>
-      <div className="rounded-lg flex flex-col h-full">
-        {/* Render search input and back button */}
-        <div className="flex flex-col md:flex-row justify-between items-center px-10 mt-20 z-20">
-          {/* <Input handleSearch={handleSearch} setLocation={setLocation} /> */}
+      <div className="rounded-lg flex flex-col h-full w-full">
+        <div className="flex flex-col md:flex-row justify-between items-center px-10 mt-24 z-20">
           <Link href="/" className="bg-zinc-900 rounded-xl border-2">
             <div className="p-2 text-center text-white">Go back</div>
           </Link>
@@ -50,11 +48,12 @@ export default function City() {
         </div>
         {/* Render weather data */}
         {Object.keys(data).length !== 0 && error === "" && (
-          <div className="w-full h-full mt-8">
-            <div className="flex md:flex-row flex-col p-12 items-center justify-between mt-[-4rem] gap-8">
+          <div className="w-full h-full mt-10 flex flex-col">
+            <div className="flex md:flex-row flex-col p-12 items-center justify-between mt-[-4rem] gap-8 w-full">
               <Current data={data} />
               <WeekForecast data={data} />
             </div>
+
             <div>
               <WeatherDetails data={data} />
             </div>
