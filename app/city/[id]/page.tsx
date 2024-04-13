@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Loader from "@/app/components/Loader"
+import Loader2 from "@/app/components/Loader2"
 import { useState, useEffect } from "react";
 import Current from "@/app/components/Current";
 import WeekForecast from "@/app/components/WeekForecast";
@@ -36,7 +36,7 @@ export default function City() {
   }, []);
 
   return (
-    <div className={`bg-cover bg-gradient-to-t from-gray-800 to-black ${Object.keys(data).length === 0 ? "h-screen" : ""}`}>
+    <div className={` bg-zinc-950 ${Object.keys(data).length === 0 ? "h-screen" : ""}`}>
       <div className="rounded-lg flex flex-col h-full">
         {/* Render search input and back button */}
         <div className="flex flex-col md:flex-row justify-between items-center px-10 mt-20 z-20">
@@ -46,7 +46,7 @@ export default function City() {
           </Link>
         </div>
         <div className="flex items-center justify-center h-full">
-          {loading && <Loader />}
+          {loading && <Loader2 />}
         </div>
         {/* Render weather data */}
         {Object.keys(data).length !== 0 && error === "" && (

@@ -92,12 +92,12 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gradient-to-t from-slate-900 to-black bg-cover h-screen flex items-center justify-center">
+    <div className="bg-zinc-950 bg-cover h-screen flex items-center justify-center">
       <div className="flex w-3/5 items-center justify-center flex-col gap-5">
-        <div className="w-4/5 bg-gray rounded-lg h-3/5 py-2 border-b-2 px-3">
+        <div className="w-4/5 rounded-lg h-3/5 py-2 border-b-2">
           <input
             type="text"
-            className="form-control flex items-center w-full px-2 z-10 bg-transparent outline-none text-white"
+            className="form-control flex items-center w-full px-4  outline-none text-white bg-transparent"
             placeholder="Search city"
             value={searchQuery}
             ref={searchInputRef}
@@ -115,10 +115,10 @@ const Home = () => {
           </div>
         </div>
         <div className="mx-auto w-full max-w-screen-lg max-h-72 overflow-scroll overflow-x-auto ">
-          <table className="min-w-full">
+          <table className="min-w-full ">
             <thead className="sticky top-0">
-              <tr className="">
-                <th className=" px-6 py-3 bg-gray-500 text-base font-thin text-white  tracking-wider cursor-pointer" onClick={() => handleSort("name")}>
+              <tr>
+                <th className="px-6 py-3 bg-slate-600 text-xl font-semibold text-white tracking-wider cursor-pointer" onClick={() => handleSort("name")}>
                   City Name
                   {sortConfig && sortConfig.key === "name" && (
                     <>
@@ -132,7 +132,7 @@ const Home = () => {
                 </th>
 
 
-                <th className=" px-6 py-3  bg-gray-500 text-base font-thin text-white  tracking-wider cursor-pointer" onClick={() => handleSort("country")}>
+                <th className=" px-6 py-3  bg-slate-600 text-xl font-semibold text-white  tracking-wider cursor-pointer" onClick={() => handleSort("country")}>
                   Country
                   {sortConfig && sortConfig.key === "country" && (
                     <>
@@ -146,7 +146,7 @@ const Home = () => {
                 </th>
 
 
-                <th className=" px-6 py-3  bg-gray-500 text-base font-thin text-white  tracking-wider cursor-pointer" onClick={() => handleSort("timezone")}>
+                <th className="px-6 py-3  bg-slate-600 text-xl font-semibold text-white  tracking-wider cursor-pointer" onClick={() => handleSort("timezone")}>
                   Timezone
                   {sortConfig && sortConfig.key === "timezone" && (
                     <>
@@ -162,21 +162,19 @@ const Home = () => {
             </thead>
             <tbody>
               {loading ? (
-                <tr>
-                  <td colSpan={3} className="px-6 py-4 whitespace-nowrap text-white">
-                   <Loader/>
-                  </td>
-                </tr>
+                <div className="flex justify-center items-center">
+                  <Loader />
+                </div>
               ) : sortedCities.length > 0 ? (
                 sortedCities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">
-                      <Link href={`/city/${encodeURIComponent(city.name)}`} className="hover:underline" >
+                    <td className="px-6 py-2 text-center border border-orange-600  bg-zinc-800 ">
+                      <Link href={`/city/${encodeURIComponent(city.name)}`} className="hover:text-gray-400 text-white" >
                         {city.name}
                       </Link>
                     </td>
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.country}</td>
-                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-black ">{city.timezone}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.country}</td>
+                    <td className="px-6 py-2 text-center border border-orange-600 text-white bg-zinc-800 ">{city.timezone}</td>
                   </tr>
                 ))
               ) : (
