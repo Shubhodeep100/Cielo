@@ -107,7 +107,7 @@ const Home = () => {
           <div className="absolute bg-white mt-2 shadow-lg rounded-b-lg z-10 overflow-y-auto max-h-60">
             {suggestions.map(city => (
               <div key={city.name} className="p-2 border-b">
-                <Link href={`/city/${encodeURIComponent(city.name)}`} className="text-gray-800 hover:text-gray-400" >
+                <Link href={`/city/${encodeURIComponent(city.name)}`} target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-400" >
                   {city.name}
                 </Link>
               </div>
@@ -169,7 +169,7 @@ const Home = () => {
                 sortedCities.map((city, index) => (
                   <tr key={index} className="overflow-y-auto">
                     <td className="px-6 py-2 text-center border border-orange-600  bg-zinc-800 ">
-                      <Link href={`/city/${encodeURIComponent(city.name)}`} className="hover:text-gray-400 text-white" >
+                      <Link href={`/city/${encodeURIComponent(city.name)}`} target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 text-white">
                         {city.name}
                       </Link>
                     </td>
