@@ -39,7 +39,7 @@ function Navbar() {
                     alt="Logo"
                     className="w-20 h-14 transform transition duration-500 hover:scale-110"
                 />
-                <h1 className="flex items-center text-5xl font-serif text-white tracking-wider mx-4 font-signature font-semibold">Cielo</h1>
+                <h1 className="flex items-center text-4xl font-serif text-white tracking-wider mx-4 font-signature font-semibold">Cielo</h1>
             </div>
             <nav className='sm:flex items-center hidden'>
                 {links.map(({ id, link }) => (
